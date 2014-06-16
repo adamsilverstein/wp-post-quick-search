@@ -48,6 +48,62 @@ function wppostquicksearch_init() {
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'wppostquicksearch' );
 	load_textdomain( 'wppostquicksearch', WP_LANG_DIR . '/wppostquicksearch/wppostquicksearch-' . $locale . '.mo' );
 	load_plugin_textdomain( 'wppostquicksearch', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+	add_action( 'admin_enqueue_scripts', 'wppostquicksearch_scripts' );
+	add_action( 'wp_ajax_post_search', 'wp_ajax_wppostquicksearch' );
+
+}
+
+function wppostquicksearch_scripts( $hook ) {
+	if( 'edit.php' != $hook ) {
+		return;
+	}
+
+	wp_enqueue_script( 'wppostquicksearch_script', plugin_dir_url( __FILE__ ) . 'assets/js/src/wordpress_post_quick_search.js', array( 'jquery', 'jquery-ui-autocomplete' ) );
+	wp_localize_script( 'wppostquicksearch_script', '_ajax_nonce', wp_create_nonce( 'wp_ajax_wppostquicksearch' )  );
+}
+/**
+ * Ajax handler for post search.
+ *
+ * @since 0.1.0
+ */
+function wp_ajax_wppostquicksearch() {
+	check_ajax_referer( 'wp_ajax_wppostquicksearch' );
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error();
+	}
+	if ( isset( $_GET['term'] ) ) {
+		$term = sanitize_key( $_GET['term'] );
+	} else {
+		wp_send_json_error();
+	}
+	$term = trim( $term );
+	// Require 2 chars for matching
+	if ( function_exists( 'mb_strlen' ) ) {
+		if ( mb_strlen( $term ) < 2 ) {
+			wp_send_json_error();
+		}
+	} elseif ( strlen( $term ) < 2 ) {
+		wp_send_json_error();
+	}
+
+	$results = array();
+	$args = array(
+		's'         => $term,
+		'post_type' => sanitize_key( $_GET['typenow'] )
+	);
+	$the_query = new WP_Query( $args );
+	if ( $the_query->have_posts() ) {
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$results[] = array(
+				'label' => get_the_title(),
+				'value' => get_edit_post_link( get_the_ID() ),
+			);
+		}
+	}
+	wp_reset_postdata();
+	wp_send_json( $results );
 }
 
 /**
