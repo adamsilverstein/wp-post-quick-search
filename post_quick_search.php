@@ -8,7 +8,7 @@ Author:      Adam Silverstein
 Author URI:
 License:     GPLv2+
 Domain Path: /languages
- */
+*/
 
 /**
  * Copyright (c) 2014 Adam Silverstein (email : adam@10up.com)
