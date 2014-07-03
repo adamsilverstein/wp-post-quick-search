@@ -1,4 +1,6 @@
-/*global ajaxurl, isRtl, typenow, _ajax_nonce, document, jQuery */
+/*! WordPress Post Quick Search - v0.1.0
+ * http://wordpress.org/plugins
+ * Copyright (c) 2014; * Licensed GPLv2+ */
 /**
  * WordPress Post Quick Search
  * http://wordpress.org/plugins

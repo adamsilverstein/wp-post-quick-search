@@ -11,7 +11,7 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Adds an ajaxy search box to the post list page
 
 == Description ==
-Adds a search box to the Posts page in the WordPress dashboard which uses jQuery-ui autocomplete and ajax call(s) to quicksearch thru post titles to go to the edit page. Also works with custom post types.
+Adds a search box to the Posts page in the WordPress dashboard which uses jQuery-UI autocomplete and ajax call(s) to quick-search thru post titles to go to the edit page. Also works with custom post types.
 
 
 == Installation ==
