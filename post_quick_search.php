@@ -1,14 +1,13 @@
 <?php
-/**
- * Plugin Name: WordPress Post Quick Search
- * Plugin URI:  http://wordpress.org/plugins
- * Description: Adds an ajaxy search box to the post list page
- * Version:     0.1.0
- * Author:      Adam Silverstein
- * Author URI:  
- * License:     GPLv2+
- * Text Domain: wppostquicksearch
- * Domain Path: /languages
+/*
+Plugin Name: WordPress Post Quick Search
+Plugin URI:  http://wordpress.org/plugins
+Description: Adds an ajaxy search box to the post list page
+Version:     0.1.0
+Author:      Adam Silverstein
+Author URI:
+License:     GPLv2+
+Domain Path: /languages
  */
 
 /**
